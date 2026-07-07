@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+    --color-orange-550: blue
+}
+ @layer base {
+    a {
+        text-decoration: underline;
+        color: blue;
+    }
+ }
+
+ @layer components {
+    .btn {
+        @apply bg-orange-500 text-white px-14 py-4 rounded-lg hover:bg-black duration-300 cursor-pointer block mx-auto my-8;
+    }
+ }
+@custom-variant dark (&:where(.dark, .dark *));

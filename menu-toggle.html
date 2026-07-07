@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Mobile/Desktop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* HEADER */
+        header {
+            background: #333;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* BOUTON HAMBURGER */
+        .menu-toggle {
+            display: none; /* Caché par défaut (desktop) */
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* MENU NAVIGATION */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: #ffa500;
+        }
+
+        /* RESPONSIVE - MOBILE */
+        @media (max-width: 768px) {
+            
+            /* On affiche le bouton hamburger */
+            .menu-toggle {
+                display: block;
+            }
+
+            /* Le menu devient vertical et caché par défaut */
+            nav {
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: #333;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            /* Quand le menu a la classe "active", il s'affiche */
+            nav.active {
+                max-height: 300px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0;
+            }
+
+            nav li {
+                padding: 1rem 0;
+                border-bottom: 1px solid #555;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">MonSite</div>
+        
+        <!-- Bouton hamburger (visible uniquement sur mobile) -->
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        
+        <!-- Menu de navigation -->
+        <nav id="menu">
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <script>
+        // On récupère les éléments
+        const menuToggle = document.getElementById('menuToggle');
+        const menu = document.getElementById('menu');
+
+        // Quand on clique sur le bouton hamburger
+        menuToggle.addEventListener('click', function() {
+            // On ajoute/retire la classe 'active' sur le menu
+            menu.classList.toggle('active');
+            
+            // BONUS : On peut aussi changer l'icône du bouton
+            if (menu.classList.contains('active')) {
+                menuToggle.textContent = '✕'; // Croix quand ouvert
+            } else {
+                menuToggle.textContent = '☰'; // Hamburger quand fermé
+            }
+        });
+
+        // BONUS : Fermer le menu si on clique sur un lien
+        const menuLinks = menu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                menu.classList.remove('active');
+                menuToggle.textContent = '☰';
+            });
+        });
+    </script>
+</body>
+</html>
